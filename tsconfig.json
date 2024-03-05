@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ES6", /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+    "lib": [
+      "dom",
+      "es2022"
+    ], /* Specify a set of bundled library declaration files that describe the target runtime environment. */
+    "module": "CommonJs", /* Specify what module code is generated. */
+    "rootDir": "ts/", /* Specify the root folder within your source files. */
+    "noResolve": true, /* Disallow 'import's, 'require's or '<reference>'s from expanding the number of files TypeScript should add to a project. */
+    "outDir": "ts-built/", /* Specify an output folder for all emitted files. */
+    "sourceMap": true
+  }
+}

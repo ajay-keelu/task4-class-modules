@@ -1,0 +1,19 @@
+{
+    "name": "task-4",
+    "description": "task 4 using typescript",
+    "version": "1.0.0",
+    "author": "",
+    "license": "ISC",
+    "scripts": {
+        "watch": "tsc -watch",
+        "build": "webpack",
+        "serve": "webpack-dev-server"
+    },
+    "devDependencies": {
+        "@types/node": "^20.11.24",
+        "ts-loader": "^9.5.1",
+        "webpack": "^5.90.3",
+        "webpack-cli": "^5.1.4",
+        "webpack-dev-server": "^5.0.2"
+    }
+}
