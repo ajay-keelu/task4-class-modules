@@ -8,23 +8,23 @@ class MasterService {
     getRoles(): Role[] {
         return JSON.parse(localStorage.getItem("RolesData")) || [];
     }
-    getStatus(): string[] {
+    getStatus(employees: Employee[]): string[] {
         let status = new Set<string>()
-        this.getEmployees().forEach(employee => {
+        employees.forEach(employee => {
             status.add(employee.status == 1 ? 'Active' : 'In Active')
         })
         return [...status];
     }
-    getLocations(): string[] {
+    getLocations(employees: Employee[]): string[] {
         let locations = new Set<string>();
-        this.getEmployees().forEach(employee => {
+        employees.forEach(employee => {
             locations.add(employee.location);
         })
         return [...locations];
     }
-    getDepartments(): string[] {
+    getDepartments(employees: Employee[]): string[] {
         let departments = new Set<string>();
-        this.getEmployees().forEach(employee => {
+        employees.forEach(employee => {
             departments.add(employee.department);
         })
         return [...departments];

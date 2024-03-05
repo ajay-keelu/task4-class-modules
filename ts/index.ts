@@ -197,9 +197,9 @@ class App extends AddEmployee {
     }
 
     loadSelectDropdown() {
-        document.querySelectorAll<HTMLSelectElement>('.select-item.status')[1] ? document.querySelectorAll<HTMLSelectElement>('.status')[1].innerHTML = this.getOptions(masterService.getStatus(), 'status') : '';
-        document.querySelectorAll<HTMLSelectElement>('.select-item.location')[1] ? document.querySelectorAll<HTMLSelectElement>('.location')[1].innerHTML = this.getOptions(masterService.getLocations(), 'location') : '';
-        document.querySelectorAll<HTMLSelectElement>('.select-item.department')[1] ? document.querySelectorAll<HTMLSelectElement>('.department')[1].innerHTML = this.getOptions(masterService.getDepartments(), 'department') : '';
+        document.querySelectorAll<HTMLSelectElement>('.select-item.status')[1] ? document.querySelectorAll<HTMLSelectElement>('.status')[1].innerHTML = this.getOptions(masterService.getStatus(employees), 'status') : '';
+        document.querySelectorAll<HTMLSelectElement>('.select-item.location')[1] ? document.querySelectorAll<HTMLSelectElement>('.location')[1].innerHTML = this.getOptions(masterService.getLocations(employees), 'location') : '';
+        document.querySelectorAll<HTMLSelectElement>('.select-item.department')[1] ? document.querySelectorAll<HTMLSelectElement>('.department')[1].innerHTML = this.getOptions(masterService.getDepartments(employees), 'department') : '';
         document.querySelectorAll<HTMLSelectElement>('.select-item.status')[1] ? document.querySelectorAll<HTMLSelectElement>('.status')[1].value = `${selectedFilters.status}` : '';
         document.querySelectorAll<HTMLSelectElement>('.select-item.location')[1] ? document.querySelectorAll<HTMLSelectElement>('.location')[1].value = selectedFilters.location : '';
         document.querySelectorAll<HTMLSelectElement>('.select-item.department')[1] ? document.querySelectorAll<HTMLSelectElement>('.department')[1].value = selectedFilters.department : '';
@@ -207,9 +207,9 @@ class App extends AddEmployee {
     }
 
     loadSelectMobileDropdown() {
-        document.querySelectorAll('.select-item.status')[0] ? document.querySelectorAll('.status')[0].innerHTML = this.getOptions(masterService.getStatus(), 'status') : '';
-        document.querySelectorAll('.select-item.location')[0] ? document.querySelectorAll('.location')[0].innerHTML = this.getOptions(masterService.getLocations(), 'location') : ''
-        document.querySelectorAll('.select-item.department')[0] ? document.querySelectorAll('.department')[0].innerHTML = this.getOptions(masterService.getDepartments(), 'department') : ''
+        document.querySelectorAll('.select-item.status')[0] ? document.querySelectorAll('.status')[0].innerHTML = this.getOptions(masterService.getStatus(employees), 'status') : '';
+        document.querySelectorAll('.select-item.location')[0] ? document.querySelectorAll('.location')[0].innerHTML = this.getOptions(masterService.getLocations(employees), 'location') : ''
+        document.querySelectorAll('.select-item.department')[0] ? document.querySelectorAll('.department')[0].innerHTML = this.getOptions(masterService.getDepartments(employees), 'department') : ''
     }
 
     loadFilters(): void {
