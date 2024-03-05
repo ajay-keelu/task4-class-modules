@@ -1,15 +1,15 @@
-import { employeeStatus } from "../enums/enums";
+import { EmployeeStatus } from "../enums/enums";
 
-interface selectedFilters {
+interface EmployeeSelectedFilters {
     alphabet: string,
-    status: employeeStatus,
+    status: EmployeeStatus,
     location: string,
     department: string
 }
 
-interface filterDropDown {
+interface RoleSelectedFilters {
     department: string,
     location: string
 }
 
-export { selectedFilters, filterDropDown }
+export { EmployeeSelectedFilters, RoleSelectedFilters }

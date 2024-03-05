@@ -1,5 +1,5 @@
-export enum employeeStatus {
+export enum EmployeeStatus {
   '' = 0,
-  'active' = 1,
-  'in active' = 2,
+  Active = 1,
+  InActive = 2
 }

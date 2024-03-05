@@ -14,11 +14,10 @@ let searchId: string;
 
 class AddRoles extends DisplayRoleEmployees {
 
-    roleRequiredFields: string[] = ["name", "department", "description", "location"]
 
     roleResetForm(): void {
         document.querySelector<HTMLFormElement>("#roleForm").reset();
-        for (let field of this.roleRequiredFields) {
+        for (let field of Constants.RoleRequiredFields) {
             document.querySelector<HTMLSpanElement>(`#${field}`)?.removeAttribute('error')
         }
         employees.forEach((employee) => employee.isCheckedRole = false)
@@ -26,7 +25,7 @@ class AddRoles extends DisplayRoleEmployees {
     }
     //required fields for the role page
     editRole(id: string): void {
-        let roleData: Role = roleServices.getRoleById(id);
+        let roleData: Role = roleServices.getById(id);
         document.querySelector<HTMLButtonElement>('#addrole') ? document.querySelector<HTMLButtonElement>('#addrole').innerHTML = "Update" : ''
         document.querySelector<HTMLDivElement>('form .title') ? document.querySelector<HTMLDivElement>('form .title').innerHTML = "Edit Role" : ''
         document.querySelector<HTMLInputElement>('input[name="name"]') ? document.querySelector<HTMLInputElement>('input[name="name"]').value = roleData.name : '';
@@ -34,7 +33,7 @@ class AddRoles extends DisplayRoleEmployees {
         document.querySelector<HTMLSelectElement>('select[name="location"]') ? document.querySelector<HTMLSelectElement>('select[name="location"]').value = roleData.location : '';
         document.querySelector<HTMLTextAreaElement>('textarea[name="description"]') ? document.querySelector<HTMLTextAreaElement>('textarea[name="description"]').value = roleData.description : '';
         let employeesAssigned: Employee[] = roleData.employeesAssigned;
-        employees = employeeServices.getEmployees()
+        employees = employeeServices.getAll()
         employees.forEach(employee => {
             employeesAssigned.forEach(emp => {
                 employee.empno == emp.empno ? employee.isCheckedRole = true : ""
@@ -116,15 +115,16 @@ class AddRoles extends DisplayRoleEmployees {
         this.displayEmployeeRoleBubble();
     }
 
-    getRoleModeAndId() {
-        currentRoleDetails = Constants.defaultRoleDetails;
-        searchId = window.location.search.slice(4);
-        searchId ? this.editRole(searchId) : employees = employeeServices.getEmployees();
+    getParams() {
+        currentRoleDetails = Constants.DefaultRoleDetails;
+        const urlParams: URLSearchParams = new URLSearchParams(window.location.search);
+        searchId = urlParams.get('id') as string;
+        searchId ? this.editRole(searchId) : employees = employeeServices.getAll();
     }
 
     validateForm(currentRoleDetails: Role): boolean {
         let isValid = true;
-        for (let field of this.roleRequiredFields) {
+        for (let field of Constants.RoleRequiredFields) {
             if (!currentRoleDetails[field]) {
                 document.querySelector<HTMLSpanElement>(`span#${field}`)?.setAttribute('error', '');
                 isValid = false;
@@ -141,7 +141,7 @@ class AddRoles extends DisplayRoleEmployees {
             currentRoleDetails.employeesAssigned = employees.filter(employee => employee.isCheckedRole)
             this.generateRole(currentRoleDetails);
             this.toastToggleRole(searchId ? "Role Updated Successfully" : "Role Added Successfully");
-            currentRoleDetails = Constants.defaultRoleDetails
+            currentRoleDetails = Constants.DefaultRoleDetails
             setTimeout(() => {
                 this.toastToggleRole("");
                 this.roleResetForm();

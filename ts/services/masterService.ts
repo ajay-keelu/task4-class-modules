@@ -2,12 +2,10 @@ import { Employee } from "../models/Employees";
 import { Role } from "../models/Role";
 
 class MasterService {
-    getEmployees(): Employee[] {
-        return JSON.parse(localStorage.getItem('EmployeeData')) || [];
-    }
     getRoles(): Role[] {
-        return JSON.parse(localStorage.getItem("RolesData")) || [];
+        return (JSON.parse(localStorage.getItem("RolesData")) || []).map(role => new Role(role));
     }
+
     getStatus(employees: Employee[]): string[] {
         let status = new Set<string>()
         employees.forEach(employee => {
@@ -15,6 +13,7 @@ class MasterService {
         })
         return [...status];
     }
+
     getLocations(employees: Employee[]): string[] {
         let locations = new Set<string>();
         employees.forEach(employee => {
@@ -22,6 +21,7 @@ class MasterService {
         })
         return [...locations];
     }
+
     getDepartments(employees: Employee[]): string[] {
         let departments = new Set<string>();
         employees.forEach(employee => {
@@ -29,6 +29,7 @@ class MasterService {
         })
         return [...departments];
     }
+
     getRoleLocations(): string[] {
         let locations = new Set<string>();
         this.getRoles().forEach(role => {

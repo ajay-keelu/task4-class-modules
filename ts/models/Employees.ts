@@ -1,4 +1,4 @@
-import { employeeStatus } from "../enums/enums";
+import { EmployeeStatus } from "../enums/enums";
 
 export class Employee {
     image: string;
@@ -10,13 +10,14 @@ export class Employee {
     mobile: string;
     dob: string;
     department: string;
-    status: employeeStatus;
+    status: EmployeeStatus;
     jobTitle: string;
     joiningDate: string;
     assignManager: string;
     assignProject: string;
     isCheckedRole?: boolean;
     isDelete?: boolean;
+
     constructor(employee: Employee) {
         Object.assign(this, employee);
     }

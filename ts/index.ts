@@ -1,13 +1,13 @@
 import { Constants } from "./constants/constants";
 import { Employee } from "./models/Employees";
 import AddEmployee from "./addEmployee";
-import { employeeStatus } from "./enums/enums";
 import { employeeServices } from "./services/employeeServices";
 import { roleServices } from "./services/roleServices";
 import { masterService } from "./services/masterService";
-import { selectedFilters } from "./interfaces/interfaces";
+import { EmployeeSelectedFilters, } from "./interfaces/interfaces";
+import { EmployeeStatus } from "./enums/enums";
 
-let selectedFilters: selectedFilters = Constants.selectedFilters;
+let selectedFilters: EmployeeSelectedFilters = Constants.EmployeeSelectedFilters;
 let employees: Employee[] = [];
 let prevPopUpBtn: HTMLDivElement | null;
 let prevSortBtn: HTMLImageElement | null;
@@ -31,6 +31,7 @@ class App extends AddEmployee {
             }
             flag ? filteredData.push(employee) : ""
         })
+
         return filteredData;
     }
 
@@ -39,7 +40,7 @@ class App extends AddEmployee {
         if (field == 'status') {
             options += `<option value="0">Status</option>`;
             filters.forEach(ele => {
-                options += `<option value="${employeeStatus[ele.toLocaleLowerCase()]}">${ele}</option>`;
+                options += `<option value="${EmployeeStatus[ele.toLocaleLowerCase()]}">${ele}</option>`;
             })
         }
         else {
@@ -48,6 +49,7 @@ class App extends AddEmployee {
                 options += `<option value="${ele}">${ele}</option>`;
             })
         }
+
         return options;
     }
 
@@ -62,6 +64,7 @@ class App extends AddEmployee {
 
     getFilteredEmployeesbyAlphabet(): Employee[] {
         let alphabetFilteredEmps: Employee[] = selectedFilters.alphabet ? employees.filter((employee) => (employee.firstname ? employee.firstname : employee.lastname).toLowerCase().startsWith(selectedFilters.alphabet)) : employees;
+
         return this.dropdownFilers(alphabetFilteredEmps);
     }
 
@@ -71,7 +74,7 @@ class App extends AddEmployee {
         filteredEmps.forEach(employee => {
             let row: string = Constants.EmployeeRow;
             empTable += row.replaceAll('{{employeeNumber}}', employee.empno).replace('{{firstname}}', employee.firstname).replace('{{lastname}}', employee.lastname).replace('{{image}}', employee.image).replace('{{email}}', employee.email).replace('{{location}}', employee.location)
-                .replace('{{department}}', employee.department).replace('{{role}}', employee.jobTitle).replace('{{status}}', employeeStatus[employee.status])
+                .replace('{{department}}', employee.department).replace('{{role}}', employee.jobTitle).replace('{{status}}', EmployeeStatus[employee.status])
                 .replace('{{joiningDate}}', employee.joiningDate);
         });
         let tableElement: HTMLTableElement | null = document.querySelector("#employeeTableData");
@@ -92,7 +95,7 @@ class App extends AddEmployee {
     exportDataToCSV(): void {
         let exportData: Employee[] = this.getFilteredEmployeesbyAlphabet();
         let csvFile: string = "S.No, User, Location, Departmant, Role, Employee ID, Status, Join Dt \n";
-        exportData.forEach((employee, i) => csvFile += `${i + 1},${employee.firstname + " " + employee.lastname}, ${employee.location}, ${employee.department},${employee.jobTitle},${employee.empno},${employeeStatus[employee.status]},${employee.joiningDate}\n`);
+        exportData.forEach((employee, i) => csvFile += `${i + 1},${employee.firstname + " " + employee.lastname}, ${employee.location}, ${employee.department},${employee.jobTitle},${employee.empno},${EmployeeStatus[employee.status]},${employee.joiningDate}\n`);
         document.body.innerHTML = (`<a style="display:none" href="data:text/csv;charset=utf-8,${encodeURI(csvFile)}" download="employees.csv"></a>`) + document.body.innerHTML
         document.links[0].click();
     }
@@ -100,8 +103,9 @@ class App extends AddEmployee {
     deleteEmployeesUsingCheckbox(): void {
         let tableCheckbox: NodeListOf<HTMLInputElement> = document.querySelectorAll("input.table-checkbox");
         let selectedEmpIds: string[] = Array.from(tableCheckbox).filter(ele => ele.checked).map((element) => element.id);
-        employees = employees.filter(employee => !selectedEmpIds.includes(employee.empno));
+        employees = employees.filter(employee => employee.status == 1 ? employee.status = selectedEmpIds.includes(employee.empno) ? 2 : 1 : true);
         this.displayFilteredEmployees();
+        this.loadSelectDropdown()
     }
 
     popUpDisplay(e: HTMLDivElement): void {
@@ -187,7 +191,7 @@ class App extends AddEmployee {
     }
 
     loadEmployees(): void {
-        employees = employeeServices.getEmployees()
+        employees = employeeServices.getAll()
     }
 
     loadSelectDropdown() {
@@ -216,9 +220,9 @@ class App extends AddEmployee {
         this.loadSelectDropdown()
         this.loadSelectMobileDropdown()
         this.loadFilters()
-        this.getModeandId()
+        this.getParams()
         this.getRoleEmployees()
-        this.displayRoles(roleServices.getRoles())
+        this.displayRoles(roleServices.getAll())
         let hideResetBtns: HTMLDivElement | null = document.querySelector('#hideResetBtns');
         hideResetBtns ? hideResetBtns.style.display = "none" : ''
     }

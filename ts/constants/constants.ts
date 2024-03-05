@@ -108,7 +108,7 @@ export const Constants = {
       </button>
     </td>
 </tr>`,
-  roleCard: `<div class="roles-description">
+  RoleCard: `<div class="roles-description">
 <div class="roles-heading">
   <h3>{{roleName}}</h3>
   <img src="../assests/images/edit.svg" alt="edit" onclick="window.app.redirectingToEditRole({{roleId}})" />
@@ -158,7 +158,7 @@ export const Constants = {
 </div>
 <button onclick="window.app.removeFromEmployeeBubble({{empId}})">x</button>
 </div>`,
-  roleDetailsEmployeeCard: `<div class="role-profile-card">
+  RoleDetailsEmployeeCard: `<div class="role-profile-card">
 <div class="role-profile">
   <div class="role-image">
     <img src="{{image}}" alt="profile" height="30px" />
@@ -192,7 +192,7 @@ export const Constants = {
   </div>
 </div>
 </div>`,
-  defaultEmployeeDetails: {
+  DefaultEmployeeDetails: {
     image: "../assests/images/user-profile.jpg",
     firstname: "",
     lastname: "",
@@ -208,7 +208,7 @@ export const Constants = {
     assignManager: "",
     assignProject: ""
   },
-  defaultRoleDetails: {
+  DefaultRoleDetails: {
     name: '',
     department: '',
     description: '',
@@ -216,10 +216,12 @@ export const Constants = {
     id: '',
     employeesAssigned: []
   },
-  selectedFilters: {
+  EmployeeSelectedFilters: {
     alphabet: '',
     status: 0,
     location: '',
     department: ''
-  }
+  },
+  EmployeeRequiredFields: ["empno", "email", "firstname", "lastname", "joiningDate"],
+  RoleRequiredFields: ["name", "department", "description", "location"]
 }

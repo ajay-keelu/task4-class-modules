@@ -1,12 +1,12 @@
 import AddRoles from "./addRole";
 import { Constants } from "./constants/constants";
-import { filterDropDown } from "./interfaces/interfaces";
+import { RoleSelectedFilters } from "./interfaces/interfaces";
 import { Role } from "./models/Role";
 import { masterService } from "./services/masterService";
 import { roleServices } from "./services/roleServices";
 
 
-let filterDropDown: filterDropDown = { department: '', location: '' }
+let filterDropDown: RoleSelectedFilters = { department: '', location: '' }
 let hideResetBtns: HTMLDivElement | null = document.querySelector('#hideResetBtns');
 
 //on change select dropdown filter
@@ -27,7 +27,7 @@ class Roles extends AddRoles {
     public displayRoles(roles: Role[]): void {
         let innerData: string = ""
         roles.forEach((role: Role) => {
-            let roleCardData: string = Constants.roleCard;
+            let roleCardData: string = Constants.RoleCard;
             let imageDivision: string = `<div class="top"><img src="{{employeeImage}}" height="20px" alt="profile" /></div>`;
             let imageCardContainer: string = role.employeesAssigned?.length > 4 ? `<div class="top"> +${role.employeesAssigned.length - 4}</div>` : "";
             imageCardContainer += role.employeesAssigned.splice(0, 4).map(employee => imageDivision.replace('{{employeeImage}}', employee.image));
@@ -36,7 +36,7 @@ class Roles extends AddRoles {
         });
         let roleCards: HTMLDivElement | null = document.querySelector('.roles-items');
         roleCards ? roleCards.innerHTML = roles.length > 0 ? innerData : '<div class="noDataFound">No data found</div>' : '';
-        this.getRoleModeAndId();
+        this.getParams();
     }
 
     public loadDropdownFilters() {
@@ -71,7 +71,7 @@ let roleObj = new Roles();
 document.querySelector<HTMLButtonElement>('.right-item .apply')?.addEventListener('click', (e: Event): void => {
     e.preventDefault();
     let filteredData: Role[] = [];
-    roleServices.getRoles().forEach((role) => {
+    roleServices.getAll().forEach((role) => {
         let flag: boolean = true;
         for (let key in filterDropDown) {
             if (filterDropDown[key] && role[key] != filterDropDown[key]) flag = false;
@@ -83,5 +83,5 @@ document.querySelector<HTMLButtonElement>('.right-item .apply')?.addEventListene
 
 // on clicking reset displaying the all the roles
 roleObj.loadDropdownFilters();
-document.querySelector<HTMLButtonElement>('.right-item .reset')?.addEventListener('click', (): void => roleObj.displayRoles(roleServices.getRoles()));
+document.querySelector<HTMLButtonElement>('.right-item .reset')?.addEventListener('click', (): void => roleObj.displayRoles(roleServices.getAll()));
 export default Roles;

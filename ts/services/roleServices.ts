@@ -1,29 +1,35 @@
 import { Role } from "../models/Role";
 class RoleServices {
 
-    setRoles(data: Role[]): void {
+    set(data: Role[]): void {
         localStorage.setItem("RolesData", JSON.stringify(data));
     }
-    getRoles(): Role[] {
-        return JSON.parse(localStorage.getItem("RolesData")) || [];
+
+    getAll(): Role[] {
+        return (JSON.parse(localStorage.getItem("RolesData")) || []).map(role => new Role(role));
     }
-    getRoleById(id: string): Role {
-        return this.getRoles().find((role: Role) => role.id == id);
+
+    getById(id: string): Role {
+        return this.getAll().find((role: Role) => role.id == id);
     }
+
     updateRole(role: Role) {
-        let roles = this.getRoles()
+        let roles = this.getAll()
         let index = roles.findIndex(ele => ele.id == role.id);
         roles[index] = role;
-        this.setRoles(roles)
+        this.set(roles)
     }
+
     generateId(): string {
         let date: Date = new Date();
         return `${date.getDay()}${date.getMonth()}${date.getFullYear()}${date.getHours()}${date.getMinutes()}${date.getMilliseconds()}`;
     }
+
     createRole(role: Role) {
         role.id = this.generateId();
-        this.setRoles([...this.getRoles(), role]);
+        this.set([...this.getAll(), role]);
     }
+
     save(role: Role) {
         if (role.id)
             this.updateRole(role);

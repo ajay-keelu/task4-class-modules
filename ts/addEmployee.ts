@@ -4,17 +4,15 @@ import Roles from "./roles";
 import { employeeServices } from "./services/employeeServices";
 import { utility } from "./services/formValidation";
 let empId: string, mode: string;
-var employeeFormDetails: Employee = Constants.defaultEmployeeDetails;
+var employeeFormDetails: Employee = Constants.DefaultEmployeeDetails;
 
 class AddEmployee extends Roles {
-    requiredFields: string[] = ["empno", "email", "firstname", "lastname", "joiningDate"];
 
     //getting mode and employee id if it exists
-    getModeandId(): void {
-        let URL: string = window.location.search.slice(1);
-        [empId, mode] = URL ? URL.split('&&') : ["", ""];
-        empId = empId ? empId.slice(3) : "";
-        mode = mode ? mode.slice(5) : "";
+    getParams(): void {
+        const urlParams: URLSearchParams = new URLSearchParams(window.location.search);
+        mode = urlParams.get('mode') as string;
+        empId = urlParams.get('id') as string
         ((mode == "view" || mode == "edit") && !empId) ? window.location.href = "index.html" : "";
         mode == "view" && empId ? this.viewPage(empId) : mode == "edit" && empId ? this.editPage(empId) : "";
     }
@@ -28,7 +26,7 @@ class AddEmployee extends Roles {
     //deleting the employee
     deleteEmployeeUsingId(event: Event, id: string): void {
         event.preventDefault();
-        employeeServices.deleteById(id);
+        employeeServices.delete(id);
         window.location.href = 'index.html';
     }
 
@@ -83,7 +81,7 @@ class AddEmployee extends Roles {
         mode == "edit" ? window.location.reload() : "";
         document.querySelector<HTMLFormElement>("#employeeForm").reset();
         document.querySelector<HTMLImageElement>(".left-wrapper .img-wrapper img").src = employeeFormDetails.image;
-        for (let field of this.requiredFields) {
+        for (let field of Constants.EmployeeRequiredFields) {
             let spanElement: HTMLSpanElement | null = document.querySelector(`span[name="${field}"]`);
             spanElement ? spanElement.removeAttribute('error') : "";
         }
@@ -98,19 +96,23 @@ class AddEmployee extends Roles {
     handleSubmit(e: Event) {
         e.preventDefault();
         let isValid: boolean = false;
-        for (let field of this.requiredFields) {
+        for (let field of Constants.EmployeeRequiredFields) {
             let ele = document.querySelector<HTMLSpanElement>('span#' + field);
             !employeeFormDetails[field] ? ele.setAttribute('error', '') : ele.removeAttribute('error');
             if (!employeeFormDetails[field])
                 isValid = true;
         }
         if (isValid) return;
+
         isValid = utility.validateForm(employeeFormDetails);
+
         if (!isValid) return;
+
         employeeFormDetails.empno = `${parseInt(employeeFormDetails.empno)}`;
+
         let employee: Employee = new Employee(employeeFormDetails);
         employeeServices.save(employee);
-        employeeFormDetails = Constants.defaultEmployeeDetails;
+        employeeFormDetails = Constants.DefaultEmployeeDetails;
         this.toastToggle(mode != "edit" ? "Employee Added Successfully" : "Updated Successfully");
         setTimeout(() => {
             this.toastToggle("");

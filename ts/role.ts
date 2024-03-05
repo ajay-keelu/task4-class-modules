@@ -18,7 +18,7 @@ class DisplayRoleEmployees {
     public displayRoleAssignedEmployees(data: Employee[]) {
         let innerData: string = "";
         data.forEach(employee => {
-            let roleDetailCard = Constants.roleDetailsEmployeeCard;
+            let roleDetailCard = Constants.RoleDetailsEmployeeCard;
             roleDetailCard = roleDetailCard.replace('{{firstname}}', employee.firstname).replace('{{lastname}}', employee.lastname).replace('{{image}}', employee.image).replace('{{email}}', employee.email).replace('{{empno}}', employee.empno).replace('{{department}}', employee.department).replace('{{location}}', employee.location);
             innerData += roleDetailCard;
         });
@@ -28,7 +28,7 @@ class DisplayRoleEmployees {
 
     public getRoleEmployees() {
         roleId = window.location.search.slice(4);
-        role = roleServices.getRoleById(roleId);
+        role = roleServices.getById(roleId);
         assignedEmployees = role ? role.employeesAssigned : [];
         roleDescription ? roleDescription.innerHTML = role ? role.description : "" : "";
         assignedEmployees ? this.displayRoleAssignedEmployees(assignedEmployees) : '';
