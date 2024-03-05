@@ -1,13 +1,11 @@
 import AddRoles from "./addRole";
 import { Constants } from "./constants/constants";
+import { filterDropDown } from "./interfaces/interfaces";
 import { Role } from "./models/Role";
 import { masterService } from "./services/masterService";
 import { roleServices } from "./services/roleServices";
 
-interface filterDropDown {
-    department: string,
-    location: string
-}
+
 let filterDropDown: filterDropDown = { department: '', location: '' }
 let hideResetBtns: HTMLDivElement | null = document.querySelector('#hideResetBtns');
 

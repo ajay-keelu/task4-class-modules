@@ -5,13 +5,7 @@ import { employeeStatus } from "./enums/enums";
 import { employeeServices } from "./services/employeeServices";
 import { roleServices } from "./services/roleServices";
 import { masterService } from "./services/masterService";
-
-export interface selectedFilters {
-    alphabet: string,
-    status: employeeStatus,
-    location: string,
-    department: string
-}
+import { selectedFilters } from "./interfaces/interfaces";
 
 let selectedFilters: selectedFilters = Constants.selectedFilters;
 let employees: Employee[] = [];
