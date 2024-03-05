@@ -1,4 +1,4 @@
-const Constants = {
+export const Constants = {
   Employeetableheader: `<tr>
     <td>
       <div class="table-check-box"><input type="checkbox" onchange="window.app.employeeCheckBox(this)"/></div>
@@ -223,5 +223,3 @@ const Constants = {
     department: ''
   }
 }
-
-export { Constants }

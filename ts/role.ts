@@ -1,8 +1,7 @@
 import { Constants } from "./constants/constants";
 import { Employee } from "./models/Employees";
 import { Role } from "./models/Role";
-import { getRoleById } from "./services/roleServices";
-
+import { roleServices } from "./services/roleServices";
 // getting the role Id
 let roleId: string
 // getting role
@@ -20,19 +19,19 @@ class DisplayRoleEmployees {
         let innerData: string = "";
         data.forEach(employee => {
             let roleDetailCard = Constants.roleDetailsEmployeeCard;
-            roleDetailCard = roleDetailCard.replace('{{firstname}}', employee.firstname).replace('{{lastname}}', employee.lastname).replace('{{image}}', employee.image).replace('{{email}}', employee.email).replace('{{empno}}', employee.empno).replace('{{department}}', employee.department).replace('{{location}}', employee.location)
-            innerData += roleDetailCard
+            roleDetailCard = roleDetailCard.replace('{{firstname}}', employee.firstname).replace('{{lastname}}', employee.lastname).replace('{{image}}', employee.image).replace('{{email}}', employee.email).replace('{{empno}}', employee.empno).replace('{{department}}', employee.department).replace('{{location}}', employee.location);
+            innerData += roleDetailCard;
         });
-        let employeeProfiles: HTMLDivElement | null = document.querySelector('.role-all-profiles')
-        employeeProfiles ? employeeProfiles.innerHTML = innerData : ''
+        let employeeProfiles: HTMLDivElement | null = document.querySelector('.role-all-profiles');
+        employeeProfiles ? employeeProfiles.innerHTML = innerData : '';
     }
 
     public getRoleEmployees() {
         roleId = window.location.search.slice(4);
-        role = getRoleById(roleId);
-        assignedEmployees = role ? role.employeesAssigned : []
+        role = roleServices.getRoleById(roleId);
+        assignedEmployees = role ? role.employeesAssigned : [];
         roleDescription ? roleDescription.innerHTML = role ? role.description : "" : "";
-        assignedEmployees ? this.displayRoleAssignedEmployees(assignedEmployees) : ''
+        assignedEmployees ? this.displayRoleAssignedEmployees(assignedEmployees) : '';
     }
 }
-export default DisplayRoleEmployees
+export default DisplayRoleEmployees;

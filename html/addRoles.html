@@ -229,7 +229,8 @@
           <div class="assign-employees role-detail">
             <label>Assign Employees</label>
             <div class="input-form-element">
-              <input type="text" name="employeeSearch" id="employeeSearch" placeholder="Search" />
+              <input type="text" name="employeeSearch" id="employeeSearch" onkeyup="window.app.searchEmployees(event)"
+                placeholder="Search" onblur="window.app.hideEmployeeSearch(event)" />
               <div class="employee-bubble"></div>
             </div>
             <label for="employeeSearch" class="search-employee-data"> </label>
