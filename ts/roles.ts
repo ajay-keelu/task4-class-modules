@@ -1,7 +1,8 @@
+import { employeeStatus } from ".";
 import AddRoles from "./addRole";
 import { Constants } from "./constants/constants";
 import { Role } from "./models/Role";
-import { getRoles } from "./services/roleServices";
+import { getRoleDepartments, getRoleLocations, getRoles } from "./services/roleServices";
 
 interface filterDropDown {
     department: string,
@@ -10,10 +11,16 @@ interface filterDropDown {
 
 let filterDropDown: filterDropDown = { department: '', location: '' }
 let hideResetBtns: HTMLDivElement | null = document.querySelector('#hideResetBtns')
-
 //on change select dropdown filter
 hideResetBtns ? hideResetBtns.style.display = "none" : ''
-
+function getSelectOptions(filters: string[], field: string): string {
+    let options = '';
+    options += `<option value="">${field[0].toUpperCase() + field.substring(1)}</option>`
+    filters.forEach(ele => {
+        options += `<option value="${ele}">${ele}</option>`
+    })
+    return options;
+}
 class Roles extends AddRoles {
     // displaying the all the roles
     public displayRoles(roles: Role[]): void {
@@ -29,6 +36,10 @@ class Roles extends AddRoles {
         let roleCards: HTMLDivElement | null = document.querySelector('.roles-items')
         roleCards ? roleCards.innerHTML = innerData : '';
         this.getRoleModeAndId()
+    }
+    public loadDropdownFilters() {
+        document.querySelector<HTMLSelectElement>('select.roles-location') ? document.querySelector<HTMLSelectElement>('select.roles-location').innerHTML = getSelectOptions(getRoleLocations(), "location") : "";
+        document.querySelector<HTMLSelectElement>('select.roles-department') ? document.querySelector<HTMLSelectElement>('select.roles-department').innerHTML = getSelectOptions(getRoleDepartments(), "department") : ""
     }
     public filterChange(value: string, key: string): void {
         filterDropDown[key] = value;
@@ -65,6 +76,6 @@ document.querySelector<HTMLButtonElement>('.right-item .apply')?.addEventListene
 })
 
 // on clicking reset displaying the all the roles
+roleObj.loadDropdownFilters()
 document.querySelector<HTMLButtonElement>('.right-item .reset')?.addEventListener('click', (): void => roleObj.displayRoles(getRoles()))
-
 export default Roles

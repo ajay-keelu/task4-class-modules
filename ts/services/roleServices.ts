@@ -14,8 +14,23 @@ function updateRole(roles: Role[], role: Role): Role[] {
     roles[index] = role;
     return roles;
 }
+function getRoleLocations(): string[] {
+    let locations = new Set<string>()
+    getRoles().forEach(role => {
+        locations.add(role.location)
+    })
+    return [...locations] as string[]
+}
+
+function getRoleDepartments(): string[] {
+    let departments = new Set<string>()
+    getRoles().forEach(role => {
+        departments.add(role.department)
+    })
+    return [...departments] as string[]
+}
 function generateId(): string {
     let date: Date = new Date()
     return `${date.getDay()}${date.getMonth()}${date.getFullYear()}${date.getHours()}${date.getMinutes()}${date.getMilliseconds()}`;
 }
-export { setRoles, getRoles, getRoleById, updateRole, generateId }
+export { setRoles, getRoles, getRoleById, updateRole, generateId, getRoleLocations, getRoleDepartments }
