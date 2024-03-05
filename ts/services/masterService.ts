@@ -3,7 +3,7 @@ import { Role } from "../models/Role";
 
 class MasterService {
     getEmployees(): Employee[] {
-        return JSON.parse(localStorage.getItem('employeeData')) || [];
+        return JSON.parse(localStorage.getItem('EmployeeData')) || [];
     }
     getRoles(): Role[] {
         return JSON.parse(localStorage.getItem("RolesData")) || [];
