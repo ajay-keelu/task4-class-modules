@@ -68,6 +68,7 @@ function getOptions(filters: string[], field: string): string {
 }
 
 class App extends AddEmployee {
+
     public employeeDropdownFilter(value: string, key: string): void {
         selectedFilters[key] = value;
         let flag = false;
@@ -76,10 +77,12 @@ class App extends AddEmployee {
         !flag ? selectedFilters['status'] != 0 ? flag = true : "" : ''
         flag ? document.querySelector<HTMLDivElement>('#hideResetBtns').style.display = "block" : document.querySelector<HTMLDivElement>('#hideResetBtns').style.display = "none"
     }
+
     public getFilteredEmployeesbyAlphabet(): Employee[] {
         let alphabetFilteredEmps: Employee[] = selectedFilters.alphabet ? employees.filter((employee) => (employee.firstname ? employee.firstname : employee.lastname).toLowerCase().startsWith(selectedFilters.alphabet)) : employees;
         return dropdownFilers(alphabetFilteredEmps);
     }
+
     public displayFilteredEmployees(): void {
         let filteredEmps: Employee[] = this.getFilteredEmployeesbyAlphabet();
         let empTable: string = Constants.Employeetableheader;
@@ -92,6 +95,7 @@ class App extends AddEmployee {
         let tableElement: HTMLTableElement | null = document.querySelector("#employeeTableData");
         tableElement ? (tableElement.innerHTML = (filteredEmps.length > 0 ? empTable : `<td colspan="9" style="text-align:center; padding:10px 0px">No data found</td>`)) : ""
     }
+
     public removeDropdownFilter(): void {
         selectedFilters = {
             alphabet: selectedFilters.alphabet,
@@ -102,6 +106,7 @@ class App extends AddEmployee {
         this.employeeDropdownFilter("", "status")
         this.displayFilteredEmployees();
     }
+
     public exportDataToCSV(): void {
         let exportData: Employee[] = this.getFilteredEmployeesbyAlphabet();
         let csvFile: string = "S.No, User, Location, Departmant, Role, Employee ID, Status, Join Dt \n";

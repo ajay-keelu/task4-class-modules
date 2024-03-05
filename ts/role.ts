@@ -14,6 +14,7 @@ let assignedEmployees: Employee[];
 // invoking display assigned employees 
 
 class DisplayRoleEmployees {
+
     //displaying the assigned employees
     public displayRoleAssignedEmployees(data: Employee[]) {
         let innerData: string = "";
@@ -25,6 +26,7 @@ class DisplayRoleEmployees {
         let employeeProfiles: HTMLDivElement | null = document.querySelector('.role-all-profiles')
         employeeProfiles ? employeeProfiles.innerHTML = innerData : ''
     }
+
     public getRoleEmployees() {
         roleId = window.location.search.slice(4);
         role = getRoleById(roleId);

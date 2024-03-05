@@ -1,5 +1,5 @@
 const Constants = {
-    Employeetableheader: `<tr>
+  Employeetableheader: `<tr>
     <td>
       <div class="table-check-box"><input type="checkbox" onchange="window.app.employeeCheckBox(this)"/></div>
     </td>
@@ -72,7 +72,7 @@ const Constants = {
       </div>
     </td>
   </tr>`,
-    EmployeeRow: `<tr>
+  EmployeeRow: `<tr>
   <td>
     <div class="table-check-box">
       <input type="checkbox" class="table-checkbox" id="{{employeeNumber}}" onchange="window.app.employeeCheckBox()" {{checked}} />
@@ -108,7 +108,7 @@ const Constants = {
       </button>
     </td>
 </tr>`,
-    roleCard: `<div class="roles-description">
+  roleCard: `<div class="roles-description">
 <div class="roles-heading">
   <h3>{{roleName}}</h3>
   <img src="../assests/images/edit.svg" alt="edit" onclick="window.app.redirectingToEditRole({{roleId}})" />
@@ -142,7 +142,7 @@ const Constants = {
     </div>
 </div>
 </div >`,
-    EmployeeCardDropdown: `<label for="emp{{empId}}" class="employee-card">
+  EmployeeCardDropdown: `<label for="emp{{empId}}" class="employee-card">
 <div  class="profile">
   <div class="profile-image">
     <img src="{{image}}" width="23px" alt="profile" />
@@ -151,14 +151,14 @@ const Constants = {
 </div>
 <input type="checkbox" onchange="window.app.assignEmployeesToRole({{empId}})" id="emp{{empId}}" {{checked}} />
 </label>`,
-    EmployeeBubble: `<div class="employee-card">
+  EmployeeBubble: `<div class="employee-card">
 <div>
   <img src="{{image}}" alt="profile" />
   <div class="name">{{firstname}}</div>
 </div>
 <button onclick="window.app.removeFromEmployeeBubble({{empId}})">x</button>
 </div>`,
-    roleDetailsEmployeeCard: `<div class="role-profile-card">
+  roleDetailsEmployeeCard: `<div class="role-profile-card">
 <div class="role-profile">
   <div class="role-image">
     <img src="{{image}}" alt="profile" height="30px" />
@@ -192,36 +192,36 @@ const Constants = {
   </div>
 </div>
 </div>`,
-    defaultEmployeeDetails: {
-        image: "../assests/images/user-profile.jpg",
-        firstname: "",
-        lastname: "",
-        status: 1,
-        email: "",
-        empno: "",
-        location: "",
-        mobile: "",
-        dob: "",
-        department: "",
-        jobTitle: "",
-        joiningDate: "",
-        assignManager: "",
-        assignProject: ""
-    },
-    defaultRoleDetails: {
-        name: '',
-        department: '',
-        description: '',
-        location: '',
-        id: '',
-        employeesAssigned: []
-    },
-    selectedFilters: {
-        alphabet: '',
-        status: 0,
-        location: '',
-        department: ''
-    }
+  defaultEmployeeDetails: {
+    image: "../assests/images/user-profile.jpg",
+    firstname: "",
+    lastname: "",
+    status: 1,
+    email: "",
+    empno: "",
+    location: "",
+    mobile: "",
+    dob: "",
+    department: "",
+    jobTitle: "",
+    joiningDate: "",
+    assignManager: "",
+    assignProject: ""
+  },
+  defaultRoleDetails: {
+    name: '',
+    department: '',
+    description: '',
+    location: '',
+    id: '',
+    employeesAssigned: []
+  },
+  selectedFilters: {
+    alphabet: '',
+    status: 0,
+    location: '',
+    department: ''
+  }
 }
 
 export { Constants }

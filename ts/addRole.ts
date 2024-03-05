@@ -19,7 +19,6 @@ function displayEmployeeCard(filterData: Employee[]): void {
     document.querySelector<HTMLInputElement>(".search-employee-data").innerHTML = empData;
 }
 
-
 let roleRequiredFields: string[] = ["name", "department", "description", "location"]
 // resetting the form
 function roleResetForm(): void {
@@ -30,8 +29,6 @@ function roleResetForm(): void {
     employees.forEach((employee) => employee.isCheckedRole = false)
     displayEmployeeRoleBubble()
 }
-
-// add role form submission
 
 //on key change getting the employee containing the name
 inputEmployeeSearch?.addEventListener("keyup", (e: Event): void => {
@@ -45,6 +42,7 @@ inputEmployeeSearch?.addEventListener("keyup", (e: Event): void => {
     }
     displayEmployeeCard(filterArray);
 })
+
 inputEmployeeSearch?.addEventListener("blur", (e: Event): void => {
     if (!(e.target as HTMLInputElement).value) {
         document.querySelector<HTMLLabelElement>(".search-employee-data").style.display = "none";
@@ -95,15 +93,19 @@ function editRole(id: string): void {
     currentRoleDetails = { ...roleData }
     displayEmployeeRoleBubble()
 }
+
 class AddRoles extends DisplayRoleEmployees {
+
     public getRoleData(value: string, key: string): void {
         currentRoleDetails[key] = value;
     }
+
     // adding employees to the role
     public assignEmployeesToRole(empno: string): void {
         employees.forEach((employee) => employee.empno == empno ? employee.isCheckedRole = document.querySelector<HTMLInputElement>(`.employee-card #emp${empno}`).checked : "")
         displayEmployeeRoleBubble();
     }
+
     // used to remove the employee from the assigned role
     public removeFromEmployeeBubble(empno: string): void {
         let employee: HTMLInputElement | null = document.querySelector(`.employee-card #emp${empno}`);
@@ -111,11 +113,13 @@ class AddRoles extends DisplayRoleEmployees {
         employees.forEach((element) => element.empno == empno ? (element.isCheckedRole = false) : "");
         displayEmployeeRoleBubble();
     }
+
     public getRoleModeAndId() {
         currentRoleDetails = Constants.defaultRoleDetails;
         searchId = window.location.search.slice(4);
         searchId ? editRole(searchId) : employees = getEmployees();
     }
+
     public addToRole(e: Event) {
         e.preventDefault()
         let isValid: boolean = false;
@@ -142,5 +146,6 @@ class AddRoles extends DisplayRoleEmployees {
             searchId ? window.location.href = "roles.html" : ""
         }, 1500);
     }
+
 }
 export default AddRoles

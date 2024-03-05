@@ -13,6 +13,7 @@ let filterDropDown: filterDropDown = { department: '', location: '' }
 let hideResetBtns: HTMLDivElement | null = document.querySelector('#hideResetBtns')
 //on change select dropdown filter
 hideResetBtns ? hideResetBtns.style.display = "none" : ''
+
 function getSelectOptions(filters: string[], field: string): string {
     let options = '';
     options += `<option value="">${field[0].toUpperCase() + field.substring(1)}</option>`
@@ -22,6 +23,7 @@ function getSelectOptions(filters: string[], field: string): string {
     return options;
 }
 class Roles extends AddRoles {
+
     // displaying the all the roles
     public displayRoles(roles: Role[]): void {
         let innerData: string = ""
@@ -37,10 +39,12 @@ class Roles extends AddRoles {
         roleCards ? roleCards.innerHTML = innerData : '';
         this.getRoleModeAndId()
     }
+
     public loadDropdownFilters() {
         document.querySelector<HTMLSelectElement>('select.roles-location') ? document.querySelector<HTMLSelectElement>('select.roles-location').innerHTML = getSelectOptions(getRoleLocations(), "location") : "";
         document.querySelector<HTMLSelectElement>('select.roles-department') ? document.querySelector<HTMLSelectElement>('select.roles-department').innerHTML = getSelectOptions(getRoleDepartments(), "department") : ""
     }
+
     public filterChange(value: string, key: string): void {
         filterDropDown[key] = value;
         let flag = false;
@@ -49,6 +53,7 @@ class Roles extends AddRoles {
         }
         flag ? hideResetBtns.style.display = "block" : hideResetBtns.style.display = "none"
     }
+
     // on click edit in cards in page redirect to add role page and edit
     public redirectingToEditRole(id: string): void {
         window.location.href = `addRoles.html?id=${id}`;
@@ -60,7 +65,9 @@ class Roles extends AddRoles {
     }
 
 }
+
 let roleObj = new Roles()
+
 // on clicking apply filter will be applied
 document.querySelector<HTMLButtonElement>('.right-item .apply')?.addEventListener('click', (e: Event): void => {
     e.preventDefault();
