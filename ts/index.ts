@@ -17,10 +17,10 @@ export interface selectedFilters {
     department: string
 }
 
-let prevSortBtn: HTMLImageElement | null;
 let selectedFilters: selectedFilters = Constants.selectedFilters
 let employees: Employee[] = [];
 let prevPopUpBtn: HTMLDivElement | null;
+let prevSortBtn: HTMLImageElement | null;
 
 function getStatus(): string[] {
     let status = new Set<string>()
