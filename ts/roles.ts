@@ -1,4 +1,3 @@
-import { employeeStatus } from ".";
 import AddRoles from "./addRole";
 import { Constants } from "./constants/constants";
 import { Role } from "./models/Role";
@@ -22,6 +21,7 @@ function getSelectOptions(filters: string[], field: string): string {
     })
     return options;
 }
+
 class Roles extends AddRoles {
 
     // displaying the all the roles
@@ -36,7 +36,7 @@ class Roles extends AddRoles {
             innerData += roleCardData
         });
         let roleCards: HTMLDivElement | null = document.querySelector('.roles-items')
-        roleCards ? roleCards.innerHTML = innerData : '';
+        roleCards ? roleCards.innerHTML = roles.length > 0 ? innerData : '<div class="noDataFound">No data found</div>' : '';
         this.getRoleModeAndId()
     }
 

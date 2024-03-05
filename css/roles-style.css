@@ -8,6 +8,15 @@
   overflow: hidden;
   overflow-y: scroll;
   padding-bottom: 60px;
+  position: relative;
+}
+
+.roles-items .noDataFound {
+  position: absolute;
+  left: 50%;
+  top: 10%;
+  transform: translateX(-50%);
+  color: rgb(139, 138, 138);
 }
 
 .roles-items::-webkit-scrollbar,
