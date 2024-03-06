@@ -9,7 +9,7 @@ var employeeFormDetails: Employee = Constants.DefaultEmployeeDetails;
 class AddEmployee extends Roles {
 
     //getting mode and employee id if it exists
-    getParams(): void {
+    getEmployeeParams(): void {
         const urlParams: URLSearchParams = new URLSearchParams(window.location.search);
         mode = urlParams.get('mode') as string;
         empId = urlParams.get('id') as string

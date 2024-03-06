@@ -115,7 +115,7 @@ class AddRoles extends DisplayRoleEmployees {
         this.displayEmployeeRoleBubble();
     }
 
-    getParams() {
+    getRoleParams() {
         currentRoleDetails = Constants.DefaultRoleDetails;
         const urlParams: URLSearchParams = new URLSearchParams(window.location.search);
         searchId = urlParams.get('id') as string;

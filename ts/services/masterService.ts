@@ -9,7 +9,7 @@ class MasterService {
     getStatus(employees: Employee[]): string[] {
         let status = new Set<string>()
         employees.forEach(employee => {
-            status.add(employee.status == 1 ? 'Active' : 'In Active')
+            status.add(employee.status == 1 ? 'Active' : 'InActive')
         })
         return [...status];
     }

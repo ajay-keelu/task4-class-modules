@@ -36,7 +36,6 @@ class Roles extends AddRoles {
         });
         let roleCards: HTMLDivElement | null = document.querySelector('.roles-items');
         roleCards ? roleCards.innerHTML = roles.length > 0 ? innerData : '<div class="noDataFound">No data found</div>' : '';
-        this.getParams();
     }
 
     public loadDropdownFilters() {

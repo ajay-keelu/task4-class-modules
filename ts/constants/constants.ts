@@ -75,7 +75,7 @@ export const Constants = {
   EmployeeRow: `<tr>
   <td>
     <div class="table-check-box">
-      <input type="checkbox" class="table-checkbox" id="{{employeeNumber}}" onchange="window.app.employeeCheckBox()" {{checked}} />
+      <input type="checkbox" class="table-checkbox" id="{{employeeNumber}}" onchange="window.app.employeeCheckBox()" />
     </div>
   </td>
   <td>

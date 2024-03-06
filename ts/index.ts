@@ -40,7 +40,7 @@ class App extends AddEmployee {
         if (field == 'status') {
             options += `<option value="0">Status</option>`;
             filters.forEach(ele => {
-                options += `<option value="${EmployeeStatus[ele.toLocaleLowerCase()]}">${ele}</option>`;
+                options += `<option value="${EmployeeStatus[ele]}">${ele}</option>`;
             })
         }
         else {
@@ -54,7 +54,7 @@ class App extends AddEmployee {
     }
 
     employeeDropdownFilter(value: string, key: string): void {
-        selectedFilters[key] = value;
+        selectedFilters[key] = key == 'status' ? parseInt(value) : value;
         let flag = false;
         for (let key in selectedFilters)
             if (key != 'alphabet' && key != 'status' && selectedFilters[key].length > 0) flag = true;
@@ -88,7 +88,7 @@ class App extends AddEmployee {
             location: '',
             department: ''
         }
-        this.employeeDropdownFilter("", "status");
+        this.employeeDropdownFilter("0", "status");
         this.displayFilteredEmployees();
     }
 
@@ -180,7 +180,7 @@ class App extends AddEmployee {
             location: '',
             department: ''
         }
-        this.employeeDropdownFilter("", "status");
+        this.employeeDropdownFilter("0", "status");
         this.displayFilteredEmployees();
         let filterBtns: NodeListOf<HTMLButtonElement> = document.querySelectorAll('#filterBtns button');
         filterBtns.forEach(ele => {
@@ -220,7 +220,8 @@ class App extends AddEmployee {
         this.loadSelectDropdown()
         this.loadSelectMobileDropdown()
         this.loadFilters()
-        this.getParams()
+        this.getRoleParams()
+        this.getEmployeeParams()
         this.getRoleEmployees()
         this.displayRoles(roleServices.getAll())
         let hideResetBtns: HTMLDivElement | null = document.querySelector('#hideResetBtns');
