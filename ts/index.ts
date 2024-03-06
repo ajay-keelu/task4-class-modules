@@ -152,10 +152,10 @@ class App extends AddEmployee {
         let tableCheckbox: NodeListOf<HTMLInputElement> = document.querySelectorAll("input.table-checkbox");
         e && tableCheckbox?.forEach((element: HTMLInputElement) => e ? element.checked = e.checked : "");
         let flag: boolean = false;
-        tableCheckbox.forEach((data) => data.checked ? (flag = true) : "");
-        flag ? document.getElementById("deleteBtn").removeAttribute("disabled") : document.getElementById("deleteBtn")?.setAttribute("disabled", "true");
+        tableCheckbox.forEach((element) => element.checked ? (flag = true) : "");
+        flag ? document.getElementById("deleteBtn")?.removeAttribute("disabled") : document.getElementById("deleteBtn")?.setAttribute("disabled", "true");
         flag = true;
-        tableCheckbox.forEach(data => !data.checked ? flag = false : "");
+        tableCheckbox.forEach(element => !element.checked ? flag = false : "");
         tableCheckbox.length ? document.querySelector<HTMLInputElement>(".table-check-box input").checked = flag : "";
     }
 
